@@ -22,7 +22,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +30,7 @@ import java.util.Optional;
 /**
  * JavaFX App
  */
-public class UserLogin extends Application {
+public class PropertyDriver extends Application {
 
     public static void main(String[] args) {
         launch(args);
@@ -169,6 +168,18 @@ public class UserLogin extends Application {
         ListView<String> propertyListView = new ListView<>();
 
         // Add sample property details to the property list view
+        // int propertyCount = 3;
+        // creating an array of properties and filling it with randomly generated
+        // properties
+        // Property[] properties = new Property[propertyCount];
+        // for (int i = 0; i < propertyCount; i++) {
+        // properties[i] = new Property<>();
+        // }
+        // for every property object in the array properties, print it out.
+        // for (Property property : properties) {
+        // System.out.println(property);
+        // }
+
         propertyListView.getItems().addAll(
                 "OWNER 1 DATA\nProperty 1: For Sale - $250,000\n" +
                         "Available Dates: May 15, 2023\n" +

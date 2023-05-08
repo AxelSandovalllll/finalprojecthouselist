@@ -17,15 +17,24 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import edu.guilford.PropertyLists.PropertyList;
 
 /**
  * JavaFX App
@@ -380,52 +389,100 @@ public class PropertyDriver extends Application {
 
     // This method is called when the customer login information is correct
     private void openCustomerScreen(String username) {
-        // Create a new stage for the owner screen
         Stage customerStage = new Stage();
-        customerStage.setTitle("Customer Screen");
+        customerStage.setTitle("Customer Login");
+        Label titleLabel = new Label("Properties Available:");
 
-        // Create GUI components for the owner screen
-        Label titleLabel = new Label("Properties Available: ");
-        // ListView is a control that displays a list of items
-        // WE NEED TO FIGURE OUT HOW TO GET THE LIST OF PROPERTIES FROM THE OWNER SCREEN
-        // TO SHOW HERE TOO
-        ListView<String> propertyListView = new ListView<>();
+        // Sets number of properties to display
+        ArrayList<PropertyList> propertiesList = PropertyList.generateRandomPropertyList(27);
 
-        // Add sample property details to the property list view
-        // WE NEED TO FIGURE OUT HOW TO GET THE LIST OF PROPERTIES FROM THE OWNER SCREEN
-        // TO SHOW HERE TOO
-        propertyListView.getItems().addAll(
-                "Property 1: For Sale - $250,000\n" +
-                        "Available Dates: May 15, 2023\n" +
-                        "Lease Duration: N/A\n" +
-                        "Rooms: 3\n" +
-                        "Bathrooms: 2\n" +
-                        "Closets: 4\n" +
-                        "Garage: Yes\n" +
-                        "Property Type: House\n" +
-                        "Size: 2000 sq ft\n" +
-                        "Address: 123 Main St, Anytown, USA",
-                "Property 2: For Rent - $1,200/month\n" +
-                        "Available Dates: June 1, 2023\n" +
-                        "Lease Duration: 1 year\n" +
-                        "Rooms: 2\n" +
-                        "Bathrooms: 1\n" +
-                        "Closets: 2\n" +
-                        "Garage: No\n" +
-                        "Property Type: Apartment\n" +
-                        "Size: 800 sq ft\n" +
-                        "Address: 456 Elm St, Anytown, USA");
+        // Create the grid pane
+        GridPane gridPane = new GridPane();
+        gridPane.setHgap(20);
+        gridPane.setVgap(20);
+        gridPane.setPadding(new Insets(20));
+        gridPane.setAlignment(Pos.TOP_CENTER);
 
-        // Create a vertical layout for the Customer screen
+        int row = 0; // Row and col for gridpane
+        int col = 0;
+
+        // Method to add properties to gridpane
+        for (PropertyList property : propertiesList) {
+            String propertyString = String.format("%s, %s, %s %s - %s %s", property.getAddress(),
+                    property.getCity(), property.getState(), property.getZip(), property.getPrice(),
+                    property.getStatus());
+            Label propertyLabel = new Label(propertyString);
+
+            // Image for property
+            String imagePath = PropertyImages.IMAGE_PATHS[(int) (Math.random() * PropertyImages.IMAGE_PATHS.length)];
+            File image = new File(imagePath);
+            ImageView propertyImage = new ImageView(new Image(image.toURI().toString()));
+            propertyImage.setFitWidth(200);
+            propertyImage.setFitHeight(200);
+            propertyImage.setPreserveRatio(true);
+
+            // VBox for image and label
+            VBox propertyBox = new VBox(10);
+            propertyBox.getChildren().addAll(propertyImage, propertyLabel);
+            gridPane.add(propertyBox, col, row);
+
+            col++;
+            while (col == 3) {
+                col = 0;
+                row++;
+            }
+        }
+
+        // Add scroller to see all properties
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.setContent(gridPane);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setFitToHeight(true);
+
+        Scene scene = new Scene(scrollPane, 1100, 700);
+        customerStage.setScene(scene);
+        customerStage.show();
+
+        // Add event listener for property
+        for (Node node : gridPane.getChildren()) {
+            if (node instanceof VBox) {
+                VBox propertyBox = (VBox) node;
+                Label propertyLabel = (Label) propertyBox.getChildren().get(1);
+                PropertyList property = propertiesList.get(GridPane.getRowIndex(propertyBox));
+                // event listener for property that opens openPropertyDetails method
+                // propertyLabel.setOnMouseClicked(event -> openPropertyDetails(property));
+            }
+        }
+    }
+
+    private void openPropertyDetails(PropertyInformation property) {
+        Stage propertyStage = new Stage();
+        propertyStage.setTitle("Property Details");
+        Label titleLabel = new Label("Property Details:");
+
+        // Sets number of properties to display
+        ArrayList<PropertyInformation> propertiesList = PropertyInformation.generateRandomPropertyInformation(27);
+
+        // Method to add properties to gridpane
+        String propertyString = String.format("%s, %s, %s %s \n%s \n%s \n%s \n%s\n%s", property.getAddress(),
+                property.getSaleRent(), property.getPrice(), property.getLease(), property.getRooms(),
+                property.getBaths(), property.getClosets(), property.getGarage(), property.getType(),
+                property.getSqft());
+
+        Text propertyText = new Text(propertyString);
+        propertyText.setWrappingWidth(350);
+
+        // Create a vertical layout for the owner screen
         VBox layout = new VBox(10);
-        layout.getChildren().addAll(titleLabel, propertyListView);
-
+        layout.setAlignment(Pos.TOP_CENTER);
+        layout.setPadding(new Insets(20));
+        layout.getChildren().addAll(titleLabel, propertyText);
         // Set the layout as the scene content
         Scene scene = new Scene(layout, 400, 300);
-        customerStage.setScene(scene);
+        propertyStage.setScene(scene);
 
-        // Show the owner screen
-        customerStage.show();
+        // Show the property details screen
+        propertyStage.show();
     }
 
     // This method is called when the customer login information is correct

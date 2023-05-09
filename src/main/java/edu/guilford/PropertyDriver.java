@@ -373,6 +373,7 @@ public class PropertyDriver extends Application {
                 if (isLoginValid) {
                     // Login successful, open owner screen method
                     openCustomerScreen(username);
+
                     // if the login is false
                 } else {
                     // Login failed, show an error message ERROR EXCEPTION HANDLER (WE HAVE TO BUILD
@@ -450,39 +451,41 @@ public class PropertyDriver extends Application {
                 Label propertyLabel = (Label) propertyBox.getChildren().get(1);
                 PropertyList property = propertiesList.get(GridPane.getRowIndex(propertyBox));
                 // event listener for property that opens openPropertyDetails method
-                // propertyLabel.setOnMouseClicked(event -> openPropertyDetails(property));
+                propertyLabel.setOnMouseClicked(event -> openPropertyDetails(property));
             }
         }
     }
 
-    private void openPropertyDetails(PropertyInformation property) {
+    private void openPropertyDetails(PropertyList property) {
         Stage propertyStage = new Stage();
         propertyStage.setTitle("Property Details");
         Label titleLabel = new Label("Property Details:");
 
-        // Sets number of properties to display
-        ArrayList<PropertyInformation> propertiesList = PropertyInformation.generateRandomPropertyInformation(27);
+        // sets number of properties to display
+        ArrayList<PropertyList> propertiesList = PropertyList.generateRandomPropertyList(27);
 
-        // Method to add properties to gridpane
+        // method to add properties to gridpane
         String propertyString = String.format("%s, %s, %s %s \n%s \n%s \n%s \n%s\n%s", property.getAddress(),
-                property.getSaleRent(), property.getPrice(), property.getLease(), property.getRooms(),
-                property.getBaths(), property.getClosets(), property.getGarage(), property.getType(),
-                property.getSqft());
+                property.getCity(), property.getState(), property.getZip(), property.getPrice(), property.getOwner(),
+                property.getType(), property.getDuration(), property.getStatus());
+        // NEED TO ADD *property.getBedrooms(), property.getBathrooms(),
+        // property.getSquareFootage(),
 
-        Text propertyText = new Text(propertyString);
-        propertyText.setWrappingWidth(350);
+        Label propertyLabel = new Label(propertyString);
 
         // Create a vertical layout for the owner screen
         VBox layout = new VBox(10);
         layout.setAlignment(Pos.TOP_CENTER);
         layout.setPadding(new Insets(20));
-        layout.getChildren().addAll(titleLabel, propertyText);
+        layout.getChildren().addAll(titleLabel, propertyLabel);
+
         // Set the layout as the scene content
         Scene scene = new Scene(layout, 400, 300);
         propertyStage.setScene(scene);
 
-        // Show the property details screen
+        // Show the owner screen
         propertyStage.show();
+
     }
 
     // This method is called when the customer login information is correct

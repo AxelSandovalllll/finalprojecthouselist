@@ -7,23 +7,34 @@ public class PropertyLists {
 
     public static class PropertyList {
         // attributes of properties
-        private String address;
+        // private String address;
         private String city;
         private String state;
         private String zip;
-        private String price;
+        // private String price;
         private String owner;
         private String status;
-
         private String duration;
-        private String type;
+        // private String type;
         private String ownerID;
         private String propertyID;
 
-        // constructor for property
+        private String saleRent;
+        private String price;
+        private int lease;
+        private int rooms;
+        private int baths;
+        private int closets;
+        private String garage;
+        private String type;
+        private Double sqft;
+        private String address;
+
+        // constructor for property description that shows for customer
         public PropertyList(String address, String city, String state, String zip,
                 String price, String owner, String status, String duration, String type, String ownerID,
-                String propertyID) {
+                String propertyID, String saleRent, int lease, int rooms, int baths, int closets,
+                String garage, Double sqft) {
             this.address = address;
             this.city = city;
             this.state = state;
@@ -35,14 +46,44 @@ public class PropertyLists {
             this.type = type;
             this.ownerID = ownerID;
             this.propertyID = propertyID;
+            this.saleRent = saleRent;
+            this.price = price;
+            this.lease = lease;
+            this.rooms = rooms;
+            this.baths = baths;
+            this.closets = closets;
+            this.garage = garage;
+            this.sqft = sqft;
+
         }
 
+        // constructor that creates the property list for the owner
+        // constructor for PropertyInformation
+        // public PropertyList(String saleRent, String price, int lease, int rooms, int
+        // baths, int closets,
+        // String garage, String type, Double sqft, String address) {
+        // this.saleRent = saleRent;
+        // this.price = price;
+        // this.lease = lease;
+        // this.rooms = rooms;
+        // this.baths = baths;
+        // this.closets = closets;
+        // this.garage = garage;
+        // this.type = type;
+        // this.sqft = sqft;
+        // this.address = address;
+        // }
+
         // static method to generate a list of random properties
+        /**
+         * @param numProperties
+         * @return
+         */
         public static ArrayList<PropertyList> generateRandomPropertyList(int numProperties) {
             ArrayList<PropertyList> properties = new ArrayList<>();
             Random rand = new Random();
             // address
-            String[] address = { "123 Green St", "456 Guilford St", "789 Enlglish St", "1011 East St", "1213 North St",
+            String[] address = { "123 Green St", "456 Guilford St", "789 English St", "1011 East St", "1213 North St",
                     "1415 South St",
                     "1617 Bryan St", "1819 Hobs St", "2021 Rachels St", "2223 Founders St", "2425 Wendover St" };
             String[] cities = { "New York", "Los Angeles", "Chicago", "Houston", "Phoenix", "Philadelphia",
@@ -50,9 +91,10 @@ public class PropertyLists {
             String[] states = { "NY", "CA", "IL", "TX", "AZ", "PA", "TX", "CA", "TX", "CA", "NC" };
             String[] owner = { "Tyler Smith", "Jane lowk", "Axel Sandoval", "Kevin Buikpor", "Rob Whitnell",
                     "Rogelio Perez",
-                    "Sam Williams", "lex Mill", "Oscar Brown", "Carl Brown", "Jim Jones", "alex Jones" };
-            String[] statuses = { "For sale", "For rent", "under contract", "sold" };
-            String[] types = { "single family home", "condo", "apartment", "townhouse" };
+                    "Sam Williams", "Lex Mill", "Oscar Brown", "Carl Brown", "Jim Jones", "alex Jones" };
+            String[] statuses = { "For Sale", "For Rent", "Under Contract", "Sold" };
+            String[] types = { "Single Family House", "Condo", "Apartment", "Townhouse" };
+            String[] garages = { "1 car", "2 car", "3 car", "4 car", "5 car" };
 
             for (int i = 0; i < numProperties; i++) { // loop to add random properties to list
                 String randomAddress = address[rand.nextInt(address.length)];
@@ -66,10 +108,18 @@ public class PropertyLists {
                 String type = types[rand.nextInt(types.length)];
                 String ownerID = String.valueOf(rand.nextInt(1000));
                 String propertyID = String.valueOf(rand.nextInt(10000));
+                String saleRent = statuses[rand.nextInt(statuses.length)];
+
+                int lease = rand.nextInt(12) + 1;
+                int rooms = rand.nextInt(5) + 1;
+                int baths = rand.nextInt(5) + 1;
+                int closets = rand.nextInt(5) + 1;
+                String garage = garages[rand.nextInt(garages.length)];
+                Double sqft = Math.floor(rand.nextDouble() * 10000);
 
                 PropertyList property = new PropertyList(randomAddress, city, state, zip, price, ownerS, status,
-                        duration,
-                        type, ownerID, propertyID);
+                        duration, type, ownerID, propertyID, saleRent, lease, rooms, baths, closets, garage, sqft);
+
                 properties.add(property);
             }
 
@@ -164,12 +214,75 @@ public class PropertyLists {
             this.propertyID = propertyID;
         }
 
+        public String getSaleRent() {
+            return saleRent;
+        }
+
+        public void setSaleRent(String saleRent) {
+            this.saleRent = saleRent;
+        }
+
+        public int getLease() {
+            return lease;
+        }
+
+        public void setLease(int lease) {
+            this.lease = lease;
+        }
+
+        public int getRooms() {
+            return rooms;
+        }
+
+        public void setRooms(int rooms) {
+            this.rooms = rooms;
+        }
+
+        public int getBaths() {
+            return baths;
+        }
+
+        public void setBaths(int baths) {
+            this.baths = baths;
+        }
+
+        public int getClosets() {
+            return closets;
+        }
+
+        public void setClosets(int closets) {
+            this.closets = closets;
+        }
+
+        public String getGarage() {
+            return garage;
+        }
+
+        public void setGarage(String garage) {
+            this.garage = garage;
+        }
+
+        public Double getSqft() {
+            return sqft;
+        }
+
+        public void setSqft(Double sqft) {
+            this.sqft = sqft;
+        }
+
         // to method
         public String toString() {
             return "PropertyList [address=" + address + ", city=" + city + ", state=" + state + ", zip=" + zip
                     + ", price="
                     + price + ", owner=" + owner + ", status=" + status + ", duration=" + duration + ", type=" + type
                     + ", ownerID=" + ownerID + ", propertyID=" + propertyID + "]";
+        }
+
+        // 2nd String method
+        public String toString2() {
+            return "PropertyList [saleRent=" + saleRent + ", price=" + price + ", lease=" + lease + ", rooms=" + rooms
+                    + ", baths=" + baths + ", closets=" + closets + ", garage=" + garage + ", type=" + type + ", sqft="
+                    + sqft + ", address=" + address + "]";
         }
 
     }

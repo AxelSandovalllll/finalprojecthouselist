@@ -400,7 +400,7 @@ public class PropertyDriver extends Application {
         // Create the grid pane
         GridPane gridPane = new GridPane();
         gridPane.setHgap(20);
-        gridPane.setVgap(20);
+        gridPane.setVgap(70);
         gridPane.setPadding(new Insets(20));
         gridPane.setAlignment(Pos.TOP_CENTER);
 
@@ -409,9 +409,9 @@ public class PropertyDriver extends Application {
 
         // Method to add properties to gridpane
         for (PropertyList property : propertiesList) {
-            String propertyString = String.format("%s, %s, %s %s - %s %s", property.getAddress(),
-                    property.getCity(), property.getState(), property.getZip(), property.getPrice(),
-                    property.getStatus());
+            String propertyString = String.format("%s %s %s %s\n %s\n %s", property.getAddress(),
+                    property.getCity(), property.getState(), property.getZip(), "Price:  ", property.getPrice(),
+                    "Status:  ", property.getStatus());
             Label propertyLabel = new Label(propertyString);
 
             // Image for property
@@ -423,7 +423,7 @@ public class PropertyDriver extends Application {
             propertyImage.setPreserveRatio(true);
 
             // VBox for image and label
-            VBox propertyBox = new VBox(10);
+            VBox propertyBox = new VBox(20);
             propertyBox.getChildren().addAll(propertyImage, propertyLabel);
             gridPane.add(propertyBox, col, row);
 
@@ -465,9 +465,14 @@ public class PropertyDriver extends Application {
         ArrayList<PropertyList> propertiesList = PropertyList.generateRandomPropertyList(27);
 
         // method to add properties to gridpane
-        String propertyString = String.format("%s, %s, %s %s \n%s \n%s \n%s \n%s\n%s", property.getAddress(),
-                property.getCity(), property.getState(), property.getZip(), property.getPrice(), property.getOwner(),
-                property.getType(), property.getDuration(), property.getStatus());
+        String propertyString = String.format("%s\n %s\n %s\n %s\n %s\n %s\n %s\n %s\n %s\n", "Address:  " +
+                property.getAddress(), "Lease Duration:  " + property.getLease() + " months",
+                "Rooms:  " + property.getRooms(),
+                "Bathrooms:  " + property.getBaths(), "Closets:  " + property.getClosets(),
+                "Garage:  " + property.getGarage(), "Property Type:  " + property.getType(),
+                "Size:  " + property.getSqft() + " sq ft", "Price:  " + property.getPrice(),
+                "Status:  " + property.getStatus());
+
         // NEED TO ADD *property.getBedrooms(), property.getBathrooms(),
         // property.getSquareFootage(),
 

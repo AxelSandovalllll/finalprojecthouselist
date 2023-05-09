@@ -242,6 +242,17 @@ public class PropertyDriver extends Application {
 
         // Add sample property details to the property list view that are different from
         // the first owner
+
+        //print here all the random properties from the propertylist class
+
+        //instantaite random property list
+        // PropertyList propertyList = new PropertyList();
+        // //call the method to generate random properties
+        // PropertyLists.generateRandomPropertyList(10);
+        // //call the method to print the random properties
+        // PropertyLists.printRandomProperties();
+
+
         propertyListView.getItems().addAll(
                 "OWNER 2 DATA\n" +
                         "Available Dates: May 15, 2023\n" +
@@ -295,13 +306,68 @@ public class PropertyDriver extends Application {
         addPropertyDialog.setTitle("Add Property");
         addPropertyDialog.setHeaderText("Enter property details:");
 
-        // Create dialog components
-        // MAYBE THIS CAN BE PUT IN THE CLASS THAT CREATES THE NEW PROPERTYLISTVIEW
-        TextField propertyDetailsField = new TextField();
-        propertyDetailsField.setPromptText("Enter property details");
+        // instantiate a gridpane
+        GridPane grid = new GridPane();
 
-        // Set the dialog content to the property details text field
-        addPropertyDialog.getDialogPane().setContent(propertyDetailsField);
+        // add the grid to the dialog pane
+        addPropertyDialog.getDialogPane().setContent(grid);
+
+        // create a label for the property details
+        // create text labels and fields for the dialog
+        Label addressLabel = new Label("Address:");
+        TextField addressField = new TextField();
+        Label cityLabel = new Label("City:");
+        TextField cityField = new TextField();
+        Label stateLabel = new Label("State:");
+        TextField stateField = new TextField();
+        Label zipLabel = new Label("Zip:");
+        TextField zipField = new TextField();
+        Label leaseLabel = new Label("Lease Duration:");
+        TextField leaseField = new TextField();
+        Label roomsLabel = new Label("Rooms:");
+        TextField roomsField = new TextField();
+        Label bathsLabel = new Label("Bathrooms:");
+        TextField bathsField = new TextField();
+        Label closetsLabel = new Label("Closets:");
+        TextField closetsField = new TextField();
+        Label garageLabel = new Label("Garage:");
+        TextField garageField = new TextField();
+        Label typeLabel = new Label("Property Type:");
+        TextField typeField = new TextField();
+        Label sqftLabel = new Label("Size:");
+        TextField sqftField = new TextField();
+        Label priceLabel = new Label("Price:");
+        TextField priceField = new TextField();
+        Label statusLabel = new Label("Status:");
+        TextField statusField = new TextField();
+
+        // add the labels and fields to the grid
+        grid.add(addressLabel, 1, 1);
+        grid.add(addressField, 2, 1);
+        grid.add(cityLabel, 1, 2);
+        grid.add(cityField, 2, 2);
+        grid.add(stateLabel, 1, 3);
+        grid.add(stateField, 2, 3);
+        grid.add(zipLabel, 1, 4);
+        grid.add(zipField, 2, 4);
+        grid.add(leaseLabel, 1, 5);
+        grid.add(leaseField, 2, 5);
+        grid.add(roomsLabel, 1, 6);
+        grid.add(roomsField, 2, 6);
+        grid.add(bathsLabel, 1, 7);
+        grid.add(bathsField, 2, 7);
+        grid.add(closetsLabel, 1, 8);
+        grid.add(closetsField, 2, 8);
+        grid.add(garageLabel, 1, 9);
+        grid.add(garageField, 2, 9);
+        grid.add(typeLabel, 1, 10);
+        grid.add(typeField, 2, 10);
+        grid.add(sqftLabel, 1, 11);
+        grid.add(sqftField, 2, 11);
+        grid.add(priceLabel, 1, 12);
+        grid.add(priceField, 2, 12);
+        grid.add(statusLabel, 1, 13);
+        grid.add(statusField, 2, 13);
 
         // Add buttons to the dialog
         // addButton has a button data of ok_done that means that the dialog will close
@@ -311,30 +377,227 @@ public class PropertyDriver extends Application {
         // will close when the button is clicked to cancel
         ButtonType cancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
 
-        // Add buttons to the dialog
+        //add the buttons to the dialog
         addPropertyDialog.getDialogPane().getButtonTypes().addAll(addButton, cancelButton);
 
         // Enable or disable the Add button based on the text input
-        // Node is the base class for all UI components that can be added to a scene
-        // graph. It represents a single element that can be displayed on the screen,
-        // such as a button, label, or image.
-        // lookupButton() method is used to lookup a button based on the button type
         Node addButtonNode = addPropertyDialog.getDialogPane().lookupButton(addButton);
-        // setDisable() method is used to disable the button
         addButtonNode.setDisable(true);
-        // textProperty() method is used to get the text property of the text field
-        propertyDetailsField.textProperty()
-                // addListener() method is used to add a change listener to the text property
-                // (observable, oldValue, newValue) ->
-                // addButtonNode.setDisable(newValue.trim().isEmpty())
-                .addListener((observable, oldValue, newValue) -> addButtonNode.setDisable(newValue.trim().isEmpty()));
 
-        // Set the result converter to return the property details entered
+        //add a listener to all the text fields to enable the add button when all fields are filled
+        addressField.textProperty().addListener((observable, oldValue, newValue) -> {
+            addButtonNode.setDisable(newValue.trim().isEmpty());
+        });
+
+        // Set the result converter for the addPropertyDialog
         addPropertyDialog.setResultConverter(dialogButton -> {
-            if (dialogButton == addButton)
-                return propertyDetailsField.getText();
+            if (dialogButton == addButton) {
+                try {
+                    return "Owner: \n"+"Address: " + addressField.getText() + "\n" + "City: " + cityField.getText() + "\n" 
+                    + "State: " + stateField.getText() + "\n" + "Zip: " + zipField.getText() + "\n" + "Lease Duration: " + leaseField.getText() + "\n"
+                    + "Rooms: " + roomsField.getText() + "\n" + "Bathrooms: " + bathsField.getText() + "\n" + "Closets: " + closetsField.getText() + "\n"
+                    + "Garage: " + garageField.getText() + "\n" + "Property Type: " + typeField.getText() + "\n" + "Size: " + sqftField.getText() + "\n"
+                    + "Price: " + priceField.getText() + "\n" + "Status: " + statusField.getText() + "\n";
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
             return null;
         });
+        //once the add button is clicked, the property is added to the bottow of the list view
+
+
+
+
+
+
+        //add an event listener on the address field to check if the address is well formed
+        addressField.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) {
+                if (addressField.getText().matches("^[a-zA-Z0-9\\s]*$")) {
+                    addressField.setStyle("-fx-border-color: green");
+                } else {
+                    addressField.setStyle("-fx-border-color: red");
+                }
+            }
+        });
+
+        //add an event listener on the city field to check if the city is well formed
+        cityField.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) {
+                if (cityField.getText().matches("^[a-zA-Z\\s]*$")) {
+                    cityField.setStyle("-fx-border-color: green");
+                } else {
+                    cityField.setStyle("-fx-border-color: red");
+                }
+            }
+        });
+
+        //add an event listener on the state field to check if the state is well formed
+        stateField.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) {
+                if (stateField.getText().matches("^[a-zA-Z\\s]*$")) {
+                    stateField.setStyle("-fx-border-color: green");
+                } else {
+                    stateField.setStyle("-fx-border-color: red");
+                }
+            }
+        });
+
+        //add an event listener on the zip field to check if the zip is well formed
+        zipField.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) {
+                if (zipField.getText().matches("^[0-9]{5}(?:-[0-9]{4})?$")) {
+                    zipField.setStyle("-fx-border-color: green");
+                } else {
+                    zipField.setStyle("-fx-border-color: red");
+                }
+            }
+        });
+
+        //add an event listener on the lease field to check if the lease is well formed
+        leaseField.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) {
+                if (leaseField.getText().matches("^[0-9]*$")) {
+                    leaseField.setStyle("-fx-border-color: green");
+                } else {
+                    leaseField.setStyle("-fx-border-color: red");
+                }
+            }
+        });
+
+        //add an event listener on the rooms field to check if the rooms is well formed
+        roomsField.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) {
+                if (roomsField.getText().matches("^[0-9]*$")) {
+                    roomsField.setStyle("-fx-border-color: green");
+                } else {
+                    roomsField.setStyle("-fx-border-color: red");
+                }
+            }
+        });
+
+        //add an event listener on the baths field to check if the baths is well formed
+        bathsField.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) {
+                if (bathsField.getText().matches("^[0-9]*$")) {
+                    bathsField.setStyle("-fx-border-color: green");
+                } else {
+                    bathsField.setStyle("-fx-border-color: red");
+                }
+            }
+        });
+
+        //add an event listener on the closets field to check if the closets is well formed
+        closetsField.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) {
+                if (closetsField.getText().matches("^[0-9]*$")) {
+                    closetsField.setStyle("-fx-border-color: green");
+                } else {
+                    closetsField.setStyle("-fx-border-color: red");
+                }
+            }
+        });
+
+        //add an event listener on the garage field to check if the garage is well formed
+        garageField.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) {
+                if (garageField.getText().matches("^[0-9]*$")) {
+                    garageField.setStyle("-fx-border-color: green");
+                } else {
+                    garageField.setStyle("-fx-border-color: red");
+                }
+            }
+        });
+
+        //add an event listener on the type field to check if the type is well formed
+
+        typeField.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) {
+                if (typeField.getText().matches("^[a-zA-Z\\s]*$")) {
+                    typeField.setStyle("-fx-border-color: green");
+                } else {
+                    typeField.setStyle("-fx-border-color: red");
+                }
+            }
+        });
+
+        //add an event listener on the sqft field to check if the sqft is well formed
+        sqftField.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) {
+                if (sqftField.getText().matches("^[0-9]*$")) {
+                    sqftField.setStyle("-fx-border-color: green");
+                } else {
+                    sqftField.setStyle("-fx-border-color: red");
+                }
+            }
+        });
+
+        //add an event listener on the price field to check if the price is well formed
+
+        priceField.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) {
+                if (priceField.getText().matches("^[0-9]*$")) {
+                    priceField.setStyle("-fx-border-color: green");
+                } else {
+                    priceField.setStyle("-fx-border-color: red");
+                }
+            }
+        });
+
+        
+    
+
+        
+        
+        
+
+
+        // // Create dialog components
+        // // MAYBE THIS CAN BE PUT IN THE CLASS THAT CREATES THE NEW PROPERTYLISTVIEW
+        // TextField propertyDetailsField = new TextField();
+        // propertyDetailsField.setPromptText("Enter property details");
+
+        // // Set the dialog content to the property details text field
+        // addPropertyDialog.getDialogPane().setContent(propertyDetailsField);
+
+        // // Add buttons to the dialog
+        // // addButton has a button data of ok_done that means that the dialog will
+        // close
+        // // when the button is clicked successfully
+        // ButtonType addButton = new ButtonType("Add", ButtonBar.ButtonData.OK_DONE);
+        // // cancelButton has a button data of cancel_close that means that the dialog
+        // // will close when the button is clicked to cancel
+        // ButtonType cancelButton = new ButtonType("Cancel",
+        // ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        // // Add buttons to the dialog
+        // addPropertyDialog.getDialogPane().getButtonTypes().addAll(addButton,
+        // cancelButton);
+
+        // // Enable or disable the Add button based on the text input
+        // // Node is the base class for all UI components that can be added to a scene
+        // // graph. It represents a single element that can be displayed on the screen,
+        // // such as a button, label, or image.
+        // // lookupButton() method is used to lookup a button based on the button type
+        // Node addButtonNode =
+        // addPropertyDialog.getDialogPane().lookupButton(addButton);
+        // // setDisable() method is used to disable the button
+        // addButtonNode.setDisable(true);
+        // // textProperty() method is used to get the text property of the text field
+        // propertyDetailsField.textProperty()
+        // // addListener() method is used to add a change listener to the text property
+        // // (observable, oldValue, newValue) ->
+        // // addButtonNode.setDisable(newValue.trim().isEmpty())
+        // .addListener((observable, oldValue, newValue) ->
+        // addButtonNode.setDisable(newValue.trim().isEmpty()));
+
+        // // Set the result converter to return the property details entered
+        // addPropertyDialog.setResultConverter(dialogButton -> {
+        // if (dialogButton == addButton)
+        // return propertyDetailsField.getText();
+        // return null;
+        // });
 
         // Show the add property dialog and wait for user input
         addPropertyDialog.showAndWait().ifPresent(propertyDetails -> {

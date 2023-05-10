@@ -670,12 +670,12 @@ public class PropertyDriver extends Application {
         Label titleLabel = new Label("Properties Available:");
 
         // Sets number of properties to display
-        ArrayList<PropertyList> propertiesList = PropertyList.generateRandomPropertyList(27);
+        ArrayList<PropertyList> propertiesList = PropertyList.generateRandomPropertyList(14);
 
         // Create the grid pane
         GridPane gridPane = new GridPane();
-        gridPane.setHgap(20);
-        gridPane.setVgap(70);
+        gridPane.setHgap(30);
+        gridPane.setVgap(40);
         gridPane.setPadding(new Insets(20));
         gridPane.setAlignment(Pos.TOP_CENTER);
 
@@ -699,7 +699,7 @@ public class PropertyDriver extends Application {
             propertyImage.setPreserveRatio(true);
 
             // VBox for image and label
-            VBox propertyBox = new VBox(10);
+            VBox propertyBox = new VBox(40);
             // make propertybox bold when mouse hovers
             // propertyBox.setOnMouseEntered(event ->
             // propertyLabel.setStyle("-fx-font-weight: bold"));
@@ -740,6 +740,10 @@ public class PropertyDriver extends Application {
         }
     }
 
+    /**
+     * 
+     * @param property
+     */
     private void openPropertyDetails(PropertyList property) {
         Stage propertyStage = new Stage();
         propertyStage.setTitle("Property Details");

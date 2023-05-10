@@ -46,11 +46,10 @@ public class PropertyDriver extends Application {
     }
 
     @Override
-    // start() method is the main entry point for all JavaFX applications
     public void start(Stage primaryStage) {
 
-        // sets the title of the window
-        primaryStage.setTitle("Welcome Screen");
+        // Set the title of the window
+        primaryStage.setTitle("Welcome to House Market");
 
         // Create buttons for owner and customer login
         Button ownerLoginButton = new Button("Owner Login");
@@ -60,11 +59,23 @@ public class PropertyDriver extends Application {
         ownerLoginButton.setOnAction(event -> openOwnerLogin());
         customerLoginButton.setOnAction(event -> openCustomerLogin());
 
-        // Create a vertical layout and add the buttons to the center
-        VBox layout = new VBox(10);
+        // Apply styling to the buttons
+        ownerLoginButton.setStyle("-fx-font-size: 18px; -fx-padding: 10px 20px;");
+        customerLoginButton.setStyle("-fx-font-size: 18px; -fx-padding: 10px 20px;");
+
+        // Create a label for the website description
+        Label descriptionLabel = new Label("        Buy-Sell-Rent \n The Cribbo Experience");
+
+        // Apply styling to the label
+        descriptionLabel.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;");
+        descriptionLabel.setAlignment(Pos.CENTER);
+
+        // Create a vertical layout and add the label and buttons to the center
+        VBox layout = new VBox(20);
         layout.setAlignment(Pos.CENTER);
-        // layout.setPadding(new Insets(20));
-        layout.getChildren().addAll(ownerLoginButton, customerLoginButton);
+        layout.setStyle(
+                "-fx-background-image: url('file:src/main/resources/edu/guilford/backgroundhouse.jpg'); -fx-background-size: cover; -fx-padding: 40px;");
+        layout.getChildren().addAll(descriptionLabel, ownerLoginButton, customerLoginButton);
 
         // Set the layout as the scene content
         Scene scene = new Scene(layout, 500, 300);
@@ -671,8 +682,9 @@ public class PropertyDriver extends Application {
 
         // Method to add properties to gridpane
         for (PropertyList property : propertiesList) {
-            String propertyString = String.format("%s %s %s %s\n %s\n %s", property.getAddress(),
-                    property.getCity(), property.getState(), property.getZip(), "Price:  ", property.getPrice(),
+            String propertyString = String.format("%s %s %s %s\n %s %s", property.getAddress(),
+                    property.getCity(), property.getState(), property.getZip(), "           Price: ",
+                    property.getPrice(),
                     "Status:  ", property.getStatus());
             Label propertyLabel = new Label(propertyString);
 
@@ -681,11 +693,14 @@ public class PropertyDriver extends Application {
             File image = new File(imagePath);
             ImageView propertyImage = new ImageView(new Image(image.toURI().toString()));
             propertyImage.setFitWidth(200);
-            propertyImage.setFitHeight(200);
+            propertyImage.setFitHeight(150);
             propertyImage.setPreserveRatio(true);
 
             // VBox for image and label
-            VBox propertyBox = new VBox(20);
+            VBox propertyBox = new VBox(10);
+            // make propertybox bold when mouse hovers
+            // propertyBox.setOnMouseEntered(event ->
+            // propertyLabel.setStyle("-fx-font-weight: bold"));
             propertyBox.getChildren().addAll(propertyImage, propertyLabel);
             gridPane.add(propertyBox, col, row);
 

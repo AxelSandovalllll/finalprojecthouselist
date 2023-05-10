@@ -3,6 +3,7 @@ package edu.guilford;
 import javafx.application.Application;
 import javafx.beans.property.Property;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -18,6 +19,7 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
@@ -337,7 +339,7 @@ public class PropertyDriver extends Application {
         TextField stateField = new TextField();
         Label zipLabel = new Label("Zip:");
         TextField zipField = new TextField();
-        Label leaseLabel = new Label("Lease Duration:");
+        Label leaseLabel = new Label("Lease (months):");
         TextField leaseField = new TextField();
         Label roomsLabel = new Label("Rooms:");
         TextField roomsField = new TextField();
@@ -406,6 +408,10 @@ public class PropertyDriver extends Application {
         });
 
         // Set the result converter for the addPropertyDialog
+
+        // this is where we can create a new property object and add it to the listview
+        // and the database
+
         addPropertyDialog.setResultConverter(dialogButton -> {
             if (dialogButton == addButton) {
                 try {
@@ -424,6 +430,16 @@ public class PropertyDriver extends Application {
             }
             return null;
         });
+
+        //create a new Listview object 
+        ListView<String> propertyList = new ListView<String>();
+        //add the property details to the listview
+        propertyList.getItems().add(addPropertyDialog.showAndWait().get());
+        
+
+
+
+
         // once the add button is clicked, the property is added to the bottow of the
         // list view
 
@@ -738,6 +754,7 @@ public class PropertyDriver extends Application {
                 propertyLabel.setOnMouseClicked(event -> openPropertyDetails(property));
             }
         }
+
     }
 
     /**

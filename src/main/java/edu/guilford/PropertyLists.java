@@ -323,7 +323,7 @@ public class PropertyLists {
         // add the label to the grid pane
         addPropertyPane.add(addressLabel, 0, 0);
         // create a new text field
-        TextField addressField = new TextField();
+        TextField addressField = new TextField(); 
         // add the text field to the grid pane
         addPropertyPane.add(addressField, 1, 0);
         // create a new label

@@ -419,14 +419,21 @@ public class PropertyDriver extends Application {
             }
             return null;
         });
-        //once the add button is clicked, the property is added to the bottow of the list view
+
+        //create a new Listview object 
+        ListView<String> propertyList = new ListView<String>();
+        //add the property details to the listview
+        propertyList.getItems().add(addPropertyDialog.showAndWait().get());
+        
 
 
 
 
+        // once the add button is clicked, the property is added to the bottow of the
+        // list view
 
-
-        //add an event listener on the address field to check if the address is well formed
+        // add an event listener on the address field to check if the address is well
+        // formed
         addressField.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) {
                 if (addressField.getText().matches("^[a-zA-Z0-9\\s]*$")) {
@@ -437,7 +444,7 @@ public class PropertyDriver extends Application {
             }
         });
 
-        //add an event listener on the city field to check if the city is well formed
+        // add an event listener on the city field to check if the city is well formed
         cityField.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) {
                 if (cityField.getText().matches("^[a-zA-Z\\s]*$")) {
@@ -448,7 +455,7 @@ public class PropertyDriver extends Application {
             }
         });
 
-        //add an event listener on the state field to check if the state is well formed
+        // add an event listener on the state field to check if the state is well formed
         stateField.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) {
                 if (stateField.getText().matches("^[a-zA-Z\\s]*$")) {
@@ -459,7 +466,7 @@ public class PropertyDriver extends Application {
             }
         });
 
-        //add an event listener on the zip field to check if the zip is well formed
+        // add an event listener on the zip field to check if the zip is well formed
         zipField.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) {
                 if (zipField.getText().matches("^[0-9]{5}(?:-[0-9]{4})?$")) {
@@ -470,7 +477,7 @@ public class PropertyDriver extends Application {
             }
         });
 
-        //add an event listener on the lease field to check if the lease is well formed
+        // add an event listener on the lease field to check if the lease is well formed
         leaseField.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) {
                 if (leaseField.getText().matches("^[0-9]*$")) {
@@ -481,7 +488,7 @@ public class PropertyDriver extends Application {
             }
         });
 
-        //add an event listener on the rooms field to check if the rooms is well formed
+        // add an event listener on the rooms field to check if the rooms is well formed
         roomsField.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) {
                 if (roomsField.getText().matches("^[0-9]*$")) {
@@ -492,7 +499,7 @@ public class PropertyDriver extends Application {
             }
         });
 
-        //add an event listener on the baths field to check if the baths is well formed
+        // add an event listener on the baths field to check if the baths is well formed
         bathsField.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) {
                 if (bathsField.getText().matches("^[0-9]*$")) {
@@ -503,7 +510,8 @@ public class PropertyDriver extends Application {
             }
         });
 
-        //add an event listener on the closets field to check if the closets is well formed
+        // add an event listener on the closets field to check if the closets is well
+        // formed
         closetsField.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) {
                 if (closetsField.getText().matches("^[0-9]*$")) {
@@ -514,7 +522,8 @@ public class PropertyDriver extends Application {
             }
         });
 
-        //add an event listener on the garage field to check if the garage is well formed
+        // add an event listener on the garage field to check if the garage is well
+        // formed
         garageField.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) {
                 if (garageField.getText().matches("^[0-9]*$")) {
@@ -525,7 +534,7 @@ public class PropertyDriver extends Application {
             }
         });
 
-        //add an event listener on the type field to check if the type is well formed
+        // add an event listener on the type field to check if the type is well formed
 
         typeField.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) {
@@ -537,7 +546,7 @@ public class PropertyDriver extends Application {
             }
         });
 
-        //add an event listener on the sqft field to check if the sqft is well formed
+        // add an event listener on the sqft field to check if the sqft is well formed
         sqftField.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) {
                 if (sqftField.getText().matches("^[0-9]*$")) {
@@ -548,7 +557,7 @@ public class PropertyDriver extends Application {
             }
         });
 
-        //add an event listener on the price field to check if the price is well formed
+        // add an event listener on the price field to check if the price is well formed
 
         priceField.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) {
@@ -559,14 +568,6 @@ public class PropertyDriver extends Application {
                 }
             }
         });
-
-        
-    
-
-        
-        
-        
-
 
         // // Create dialog components
         // // MAYBE THIS CAN BE PUT IN THE CLASS THAT CREATES THE NEW PROPERTYLISTVIEW

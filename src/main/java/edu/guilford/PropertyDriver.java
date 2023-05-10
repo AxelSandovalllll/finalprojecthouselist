@@ -25,6 +25,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -60,14 +62,14 @@ public class PropertyDriver extends Application {
         customerLoginButton.setOnAction(event -> openCustomerLogin());
 
         // Apply styling to the buttons
-        ownerLoginButton.setStyle("-fx-font-size: 18px; -fx-padding: 10px 20px;");
-        customerLoginButton.setStyle("-fx-font-size: 18px; -fx-padding: 10px 20px;");
+        ownerLoginButton.setStyle("-fx-font-size: 22px; -fx-padding: 10px 20px;-fx-font-weight: bold");
+        customerLoginButton.setStyle("-fx-font-size: 22px; -fx-padding: 10px 20px;-fx-font-weight: bold");
 
         // Create a label for the website description
-        Label descriptionLabel = new Label("        Buy-Sell-Rent \n The Cribbo Experience");
+        Label descriptionLabel = new Label("           Buy-Sell-Rent \n The Cribbo Experience");
 
         // Apply styling to the label
-        descriptionLabel.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;");
+        descriptionLabel.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-font-family: 'Impact';");
         descriptionLabel.setAlignment(Pos.CENTER);
 
         // Create a vertical layout and add the label and buttons to the center
@@ -727,6 +729,11 @@ public class PropertyDriver extends Application {
                 VBox propertyBox = (VBox) node;
                 Label propertyLabel = (Label) propertyBox.getChildren().get(1);
                 PropertyList property = propertiesList.get(GridPane.getRowIndex(propertyBox));
+                // make a property bold when mouse hovers over it
+                propertyLabel
+                        .setOnMouseEntered(event -> propertyLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 12)));
+                propertyLabel
+                        .setOnMouseExited(event -> propertyLabel.setFont(Font.font("Verdana", FontWeight.NORMAL, 12)));
                 // event listener for property that opens openPropertyDetails method
                 propertyLabel.setOnMouseClicked(event -> openPropertyDetails(property));
             }

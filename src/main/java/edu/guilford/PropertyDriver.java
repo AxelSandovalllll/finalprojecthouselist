@@ -100,7 +100,10 @@ public class PropertyDriver extends Application {
         // if the user enters a username
         if (usernameResult.isPresent()) {
             // Username entered, prompt for password
+            // clears the text field
+            loginDialog.getEditor().clear();
             loginDialog.setContentText("Password:");
+
             // optional is a container object which may or may not contain a non-null value
             // showandwait() shows the dialog and waits for the user to provide a response
             Optional<String> passwordResult = loginDialog.showAndWait();
@@ -416,6 +419,154 @@ public class PropertyDriver extends Application {
             }
             return null;
         });
+        //once the add button is clicked, the property is added to the bottow of the list view
+
+
+
+
+
+
+        //add an event listener on the address field to check if the address is well formed
+        addressField.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) {
+                if (addressField.getText().matches("^[a-zA-Z0-9\\s]*$")) {
+                    addressField.setStyle("-fx-border-color: green");
+                } else {
+                    addressField.setStyle("-fx-border-color: red");
+                }
+            }
+        });
+
+        //add an event listener on the city field to check if the city is well formed
+        cityField.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) {
+                if (cityField.getText().matches("^[a-zA-Z\\s]*$")) {
+                    cityField.setStyle("-fx-border-color: green");
+                } else {
+                    cityField.setStyle("-fx-border-color: red");
+                }
+            }
+        });
+
+        //add an event listener on the state field to check if the state is well formed
+        stateField.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) {
+                if (stateField.getText().matches("^[a-zA-Z\\s]*$")) {
+                    stateField.setStyle("-fx-border-color: green");
+                } else {
+                    stateField.setStyle("-fx-border-color: red");
+                }
+            }
+        });
+
+        //add an event listener on the zip field to check if the zip is well formed
+        zipField.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) {
+                if (zipField.getText().matches("^[0-9]{5}(?:-[0-9]{4})?$")) {
+                    zipField.setStyle("-fx-border-color: green");
+                } else {
+                    zipField.setStyle("-fx-border-color: red");
+                }
+            }
+        });
+
+        //add an event listener on the lease field to check if the lease is well formed
+        leaseField.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) {
+                if (leaseField.getText().matches("^[0-9]*$")) {
+                    leaseField.setStyle("-fx-border-color: green");
+                } else {
+                    leaseField.setStyle("-fx-border-color: red");
+                }
+            }
+        });
+
+        //add an event listener on the rooms field to check if the rooms is well formed
+        roomsField.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) {
+                if (roomsField.getText().matches("^[0-9]*$")) {
+                    roomsField.setStyle("-fx-border-color: green");
+                } else {
+                    roomsField.setStyle("-fx-border-color: red");
+                }
+            }
+        });
+
+        //add an event listener on the baths field to check if the baths is well formed
+        bathsField.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) {
+                if (bathsField.getText().matches("^[0-9]*$")) {
+                    bathsField.setStyle("-fx-border-color: green");
+                } else {
+                    bathsField.setStyle("-fx-border-color: red");
+                }
+            }
+        });
+
+        //add an event listener on the closets field to check if the closets is well formed
+        closetsField.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) {
+                if (closetsField.getText().matches("^[0-9]*$")) {
+                    closetsField.setStyle("-fx-border-color: green");
+                } else {
+                    closetsField.setStyle("-fx-border-color: red");
+                }
+            }
+        });
+
+        //add an event listener on the garage field to check if the garage is well formed
+        garageField.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) {
+                if (garageField.getText().matches("^[0-9]*$")) {
+                    garageField.setStyle("-fx-border-color: green");
+                } else {
+                    garageField.setStyle("-fx-border-color: red");
+                }
+            }
+        });
+
+        //add an event listener on the type field to check if the type is well formed
+
+        typeField.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) {
+                if (typeField.getText().matches("^[a-zA-Z\\s]*$")) {
+                    typeField.setStyle("-fx-border-color: green");
+                } else {
+                    typeField.setStyle("-fx-border-color: red");
+                }
+            }
+        });
+
+        //add an event listener on the sqft field to check if the sqft is well formed
+        sqftField.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) {
+                if (sqftField.getText().matches("^[0-9]*$")) {
+                    sqftField.setStyle("-fx-border-color: green");
+                } else {
+                    sqftField.setStyle("-fx-border-color: red");
+                }
+            }
+        });
+
+        //add an event listener on the price field to check if the price is well formed
+
+        priceField.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) {
+                if (priceField.getText().matches("^[0-9]*$")) {
+                    priceField.setStyle("-fx-border-color: green");
+                } else {
+                    priceField.setStyle("-fx-border-color: red");
+                }
+            }
+        });
+
+        
+    
+
+        
+        
+        
+
 
         // // Create dialog components
         // // MAYBE THIS CAN BE PUT IN THE CLASS THAT CREATES THE NEW PROPERTYLISTVIEW
@@ -484,6 +635,7 @@ public class PropertyDriver extends Application {
         // if the user enters a username
         if (usernameResult.isPresent()) {
             // Username entered, prompt for password
+            loginDialog.getEditor().clear();
             loginDialog.setContentText("Password:");
             Optional<String> passwordResult = loginDialog.showAndWait();
 

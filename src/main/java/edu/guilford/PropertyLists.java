@@ -297,58 +297,58 @@ public class PropertyLists {
 
     }
 
-    //create a method that opens a dialog box to add a property
+    // create a method that opens a dialog box to add a property
     public void addProperty() {
-        //create a new stage
+        // create a new stage
         Stage addPropertyStage = new Stage();
-        //create a new grid pane
+        // create a new grid pane
         GridPane addPropertyPane = new GridPane();
-        //set the padding
+        // set the padding
         addPropertyPane.setPadding(new Insets(10, 10, 10, 10));
-        //set the vertical and horizontal gaps
+        // set the vertical and horizontal gaps
         addPropertyPane.setVgap(8);
         addPropertyPane.setHgap(10);
-        //set the alignment
+        // set the alignment
         addPropertyPane.setAlignment(Pos.CENTER);
-        //create a new scene
+        // create a new scene
         Scene addPropertyScene = new Scene(addPropertyPane, 500, 500);
-        //set the scene
+        // set the scene
         addPropertyStage.setScene(addPropertyScene);
-        //set the title
+        // set the title
         addPropertyStage.setTitle("Add Property");
-        //create a new label
+        // create a new label
         Label addressLabel = new Label("Address:");
-        //set the font
+        // set the font
         addressLabel.setFont(Font.font("Arial", FontWeight.BOLD, 20));
-        //add the label to the grid pane
+        // add the label to the grid pane
         addPropertyPane.add(addressLabel, 0, 0);
-        //create a new text field
-        TextField addressField = new TextField();
-        //add the text field to the grid pane
+        // create a new text field
+        TextField addressField = new TextField(); 
+        // add the text field to the grid pane
         addPropertyPane.add(addressField, 1, 0);
-        //create a new label
+        // create a new label
         Label cityLabel = new Label("City:");
-        //set the font
+        // set the font
         cityLabel.setFont(Font.font("Arial", FontWeight.BOLD, 20));
-        //add the label to the grid pane
+        // add the label to the grid pane
         addPropertyPane.add(cityLabel, 0, 1);
-        //create a new text field
+        // create a new text field
         TextField cityField = new TextField();
-        //add the text field to the grid pane
+        // add the text field to the grid pane
         addPropertyPane.add(cityField, 1, 1);
-        //create a new label
+        // create a new label
         Label stateLabel = new Label("State:");
-        //set the font
+        // set the font
         stateLabel.setFont(Font.font("Arial", FontWeight.BOLD, 20));
-        //add the label to the grid pane
+        // add the label to the grid pane
         addPropertyPane.add(stateLabel, 0, 2);
-        //create a new text field
+        // create a new text field
         TextField stateField = new TextField();
-        //add the text field to the grid pane
+        // add the text field to the grid pane
         addPropertyPane.add(stateField, 1, 2);
-        //create a new label
+        // create a new label
         Label zipLabel = new Label("Zip:");
-        //set the font
+        // set the font
 
-}
+    }
 }

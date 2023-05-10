@@ -3,6 +3,7 @@ package edu.guilford;
 import javafx.application.Application;
 import javafx.beans.property.Property;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -18,6 +19,7 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
@@ -25,6 +27,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -243,15 +247,14 @@ public class PropertyDriver extends Application {
         // Add sample property details to the property list view that are different from
         // the first owner
 
-        //print here all the random properties from the propertylist class
+        // print here all the random properties from the propertylist class
 
-        //instantaite random property list
+        // instantaite random property list
         // PropertyList propertyList = new PropertyList();
         // //call the method to generate random properties
         // PropertyLists.generateRandomPropertyList(10);
         // //call the method to print the random properties
         // PropertyLists.printRandomProperties();
-
 
         propertyListView.getItems().addAll(
                 "OWNER 2 DATA\n" +
@@ -322,7 +325,7 @@ public class PropertyDriver extends Application {
         TextField stateField = new TextField();
         Label zipLabel = new Label("Zip:");
         TextField zipField = new TextField();
-        Label leaseLabel = new Label("Lease Duration:");
+        Label leaseLabel = new Label("Lease (months):");
         TextField leaseField = new TextField();
         Label roomsLabel = new Label("Rooms:");
         TextField roomsField = new TextField();
@@ -377,181 +380,42 @@ public class PropertyDriver extends Application {
         // will close when the button is clicked to cancel
         ButtonType cancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
 
-        //add the buttons to the dialog
+        // add the buttons to the dialog
         addPropertyDialog.getDialogPane().getButtonTypes().addAll(addButton, cancelButton);
 
         // Enable or disable the Add button based on the text input
         Node addButtonNode = addPropertyDialog.getDialogPane().lookupButton(addButton);
         addButtonNode.setDisable(true);
 
-        //add a listener to all the text fields to enable the add button when all fields are filled
+        // add a listener to all the text fields to enable the add button when all
+        // fields are filled
         addressField.textProperty().addListener((observable, oldValue, newValue) -> {
             addButtonNode.setDisable(newValue.trim().isEmpty());
         });
 
         // Set the result converter for the addPropertyDialog
+
+        // this is where we can create a new property object and add it to the listview
+        // and the database
+
         addPropertyDialog.setResultConverter(dialogButton -> {
             if (dialogButton == addButton) {
                 try {
-                    return "Owner: \n"+"Address: " + addressField.getText() + "\n" + "City: " + cityField.getText() + "\n" 
-                    + "State: " + stateField.getText() + "\n" + "Zip: " + zipField.getText() + "\n" + "Lease Duration: " + leaseField.getText() + "\n"
-                    + "Rooms: " + roomsField.getText() + "\n" + "Bathrooms: " + bathsField.getText() + "\n" + "Closets: " + closetsField.getText() + "\n"
-                    + "Garage: " + garageField.getText() + "\n" + "Property Type: " + typeField.getText() + "\n" + "Size: " + sqftField.getText() + "\n"
-                    + "Price: " + priceField.getText() + "\n" + "Status: " + statusField.getText() + "\n";
+                    return "Owner: \n" + "Address: " + addressField.getText() + "\n" + "City: " + cityField.getText()
+                            + "\n"
+                            + "State: " + stateField.getText() + "\n" + "Zip: " + zipField.getText() + "\n"
+                            + "Lease Duration: " + leaseField.getText() + "\n"
+                            + "Rooms: " + roomsField.getText() + "\n" + "Bathrooms: " + bathsField.getText() + "\n"
+                            + "Closets: " + closetsField.getText() + "\n"
+                            + "Garage: " + garageField.getText() + "\n" + "Property Type: " + typeField.getText() + "\n"
+                            + "Size: " + sqftField.getText() + "\n"
+                            + "Price: " + priceField.getText() + "\n" + "Status: " + statusField.getText() + "\n";
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
             return null;
         });
-        //once the add button is clicked, the property is added to the bottow of the list view
-
-
-
-
-
-
-        //add an event listener on the address field to check if the address is well formed
-        addressField.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue) {
-                if (addressField.getText().matches("^[a-zA-Z0-9\\s]*$")) {
-                    addressField.setStyle("-fx-border-color: green");
-                } else {
-                    addressField.setStyle("-fx-border-color: red");
-                }
-            }
-        });
-
-        //add an event listener on the city field to check if the city is well formed
-        cityField.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue) {
-                if (cityField.getText().matches("^[a-zA-Z\\s]*$")) {
-                    cityField.setStyle("-fx-border-color: green");
-                } else {
-                    cityField.setStyle("-fx-border-color: red");
-                }
-            }
-        });
-
-        //add an event listener on the state field to check if the state is well formed
-        stateField.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue) {
-                if (stateField.getText().matches("^[a-zA-Z\\s]*$")) {
-                    stateField.setStyle("-fx-border-color: green");
-                } else {
-                    stateField.setStyle("-fx-border-color: red");
-                }
-            }
-        });
-
-        //add an event listener on the zip field to check if the zip is well formed
-        zipField.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue) {
-                if (zipField.getText().matches("^[0-9]{5}(?:-[0-9]{4})?$")) {
-                    zipField.setStyle("-fx-border-color: green");
-                } else {
-                    zipField.setStyle("-fx-border-color: red");
-                }
-            }
-        });
-
-        //add an event listener on the lease field to check if the lease is well formed
-        leaseField.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue) {
-                if (leaseField.getText().matches("^[0-9]*$")) {
-                    leaseField.setStyle("-fx-border-color: green");
-                } else {
-                    leaseField.setStyle("-fx-border-color: red");
-                }
-            }
-        });
-
-        //add an event listener on the rooms field to check if the rooms is well formed
-        roomsField.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue) {
-                if (roomsField.getText().matches("^[0-9]*$")) {
-                    roomsField.setStyle("-fx-border-color: green");
-                } else {
-                    roomsField.setStyle("-fx-border-color: red");
-                }
-            }
-        });
-
-        //add an event listener on the baths field to check if the baths is well formed
-        bathsField.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue) {
-                if (bathsField.getText().matches("^[0-9]*$")) {
-                    bathsField.setStyle("-fx-border-color: green");
-                } else {
-                    bathsField.setStyle("-fx-border-color: red");
-                }
-            }
-        });
-
-        //add an event listener on the closets field to check if the closets is well formed
-        closetsField.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue) {
-                if (closetsField.getText().matches("^[0-9]*$")) {
-                    closetsField.setStyle("-fx-border-color: green");
-                } else {
-                    closetsField.setStyle("-fx-border-color: red");
-                }
-            }
-        });
-
-        //add an event listener on the garage field to check if the garage is well formed
-        garageField.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue) {
-                if (garageField.getText().matches("^[0-9]*$")) {
-                    garageField.setStyle("-fx-border-color: green");
-                } else {
-                    garageField.setStyle("-fx-border-color: red");
-                }
-            }
-        });
-
-        //add an event listener on the type field to check if the type is well formed
-
-        typeField.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue) {
-                if (typeField.getText().matches("^[a-zA-Z\\s]*$")) {
-                    typeField.setStyle("-fx-border-color: green");
-                } else {
-                    typeField.setStyle("-fx-border-color: red");
-                }
-            }
-        });
-
-        //add an event listener on the sqft field to check if the sqft is well formed
-        sqftField.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue) {
-                if (sqftField.getText().matches("^[0-9]*$")) {
-                    sqftField.setStyle("-fx-border-color: green");
-                } else {
-                    sqftField.setStyle("-fx-border-color: red");
-                }
-            }
-        });
-
-        //add an event listener on the price field to check if the price is well formed
-
-        priceField.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue) {
-                if (priceField.getText().matches("^[0-9]*$")) {
-                    priceField.setStyle("-fx-border-color: green");
-                } else {
-                    priceField.setStyle("-fx-border-color: red");
-                }
-            }
-        });
-
-        
-    
-
-        
-        
-        
-
 
         // // Create dialog components
         // // MAYBE THIS CAN BE PUT IN THE CLASS THAT CREATES THE NEW PROPERTYLISTVIEW
@@ -713,10 +577,16 @@ public class PropertyDriver extends Application {
                 VBox propertyBox = (VBox) node;
                 Label propertyLabel = (Label) propertyBox.getChildren().get(1);
                 PropertyList property = propertiesList.get(GridPane.getRowIndex(propertyBox));
+                // make a property bold when mouse hovers over it
+                propertyLabel
+                        .setOnMouseEntered(event -> propertyLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 12)));
+                propertyLabel
+                        .setOnMouseExited(event -> propertyLabel.setFont(Font.font("Verdana", FontWeight.NORMAL, 12)));
                 // event listener for property that opens openPropertyDetails method
                 propertyLabel.setOnMouseClicked(event -> openPropertyDetails(property));
             }
         }
+
     }
 
     private void openPropertyDetails(PropertyList property) {

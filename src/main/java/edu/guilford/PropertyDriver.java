@@ -96,7 +96,10 @@ public class PropertyDriver extends Application {
         // if the user enters a username
         if (usernameResult.isPresent()) {
             // Username entered, prompt for password
+            // clears the text field
+            loginDialog.getEditor().clear();
             loginDialog.setContentText("Password:");
+
             // optional is a container object which may or may not contain a non-null value
             // showandwait() shows the dialog and waits for the user to provide a response
             Optional<String> passwordResult = loginDialog.showAndWait();
@@ -243,15 +246,14 @@ public class PropertyDriver extends Application {
         // Add sample property details to the property list view that are different from
         // the first owner
 
-        //print here all the random properties from the propertylist class
+        // print here all the random properties from the propertylist class
 
-        //instantaite random property list
+        // instantaite random property list
         // PropertyList propertyList = new PropertyList();
         // //call the method to generate random properties
         // PropertyLists.generateRandomPropertyList(10);
         // //call the method to print the random properties
         // PropertyLists.printRandomProperties();
-
 
         propertyListView.getItems().addAll(
                 "OWNER 2 DATA\n" +
@@ -377,14 +379,15 @@ public class PropertyDriver extends Application {
         // will close when the button is clicked to cancel
         ButtonType cancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
 
-        //add the buttons to the dialog
+        // add the buttons to the dialog
         addPropertyDialog.getDialogPane().getButtonTypes().addAll(addButton, cancelButton);
 
         // Enable or disable the Add button based on the text input
         Node addButtonNode = addPropertyDialog.getDialogPane().lookupButton(addButton);
         addButtonNode.setDisable(true);
 
-        //add a listener to all the text fields to enable the add button when all fields are filled
+        // add a listener to all the text fields to enable the add button when all
+        // fields are filled
         addressField.textProperty().addListener((observable, oldValue, newValue) -> {
             addButtonNode.setDisable(newValue.trim().isEmpty());
         });
@@ -393,25 +396,26 @@ public class PropertyDriver extends Application {
         addPropertyDialog.setResultConverter(dialogButton -> {
             if (dialogButton == addButton) {
                 try {
-                    return "Owner: \n"+"Address: " + addressField.getText() + "\n" + "City: " + cityField.getText() + "\n" 
-                    + "State: " + stateField.getText() + "\n" + "Zip: " + zipField.getText() + "\n" + "Lease Duration: " + leaseField.getText() + "\n"
-                    + "Rooms: " + roomsField.getText() + "\n" + "Bathrooms: " + bathsField.getText() + "\n" + "Closets: " + closetsField.getText() + "\n"
-                    + "Garage: " + garageField.getText() + "\n" + "Property Type: " + typeField.getText() + "\n" + "Size: " + sqftField.getText() + "\n"
-                    + "Price: " + priceField.getText() + "\n" + "Status: " + statusField.getText() + "\n";
+                    return "Owner: \n" + "Address: " + addressField.getText() + "\n" + "City: " + cityField.getText()
+                            + "\n"
+                            + "State: " + stateField.getText() + "\n" + "Zip: " + zipField.getText() + "\n"
+                            + "Lease Duration: " + leaseField.getText() + "\n"
+                            + "Rooms: " + roomsField.getText() + "\n" + "Bathrooms: " + bathsField.getText() + "\n"
+                            + "Closets: " + closetsField.getText() + "\n"
+                            + "Garage: " + garageField.getText() + "\n" + "Property Type: " + typeField.getText() + "\n"
+                            + "Size: " + sqftField.getText() + "\n"
+                            + "Price: " + priceField.getText() + "\n" + "Status: " + statusField.getText() + "\n";
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
             return null;
         });
-        //once the add button is clicked, the property is added to the bottow of the list view
+        // once the add button is clicked, the property is added to the bottow of the
+        // list view
 
-
-
-
-
-
-        //add an event listener on the address field to check if the address is well formed
+        // add an event listener on the address field to check if the address is well
+        // formed
         addressField.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) {
                 if (addressField.getText().matches("^[a-zA-Z0-9\\s]*$")) {
@@ -422,7 +426,7 @@ public class PropertyDriver extends Application {
             }
         });
 
-        //add an event listener on the city field to check if the city is well formed
+        // add an event listener on the city field to check if the city is well formed
         cityField.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) {
                 if (cityField.getText().matches("^[a-zA-Z\\s]*$")) {
@@ -433,7 +437,7 @@ public class PropertyDriver extends Application {
             }
         });
 
-        //add an event listener on the state field to check if the state is well formed
+        // add an event listener on the state field to check if the state is well formed
         stateField.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) {
                 if (stateField.getText().matches("^[a-zA-Z\\s]*$")) {
@@ -444,7 +448,7 @@ public class PropertyDriver extends Application {
             }
         });
 
-        //add an event listener on the zip field to check if the zip is well formed
+        // add an event listener on the zip field to check if the zip is well formed
         zipField.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) {
                 if (zipField.getText().matches("^[0-9]{5}(?:-[0-9]{4})?$")) {
@@ -455,7 +459,7 @@ public class PropertyDriver extends Application {
             }
         });
 
-        //add an event listener on the lease field to check if the lease is well formed
+        // add an event listener on the lease field to check if the lease is well formed
         leaseField.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) {
                 if (leaseField.getText().matches("^[0-9]*$")) {
@@ -466,7 +470,7 @@ public class PropertyDriver extends Application {
             }
         });
 
-        //add an event listener on the rooms field to check if the rooms is well formed
+        // add an event listener on the rooms field to check if the rooms is well formed
         roomsField.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) {
                 if (roomsField.getText().matches("^[0-9]*$")) {
@@ -477,7 +481,7 @@ public class PropertyDriver extends Application {
             }
         });
 
-        //add an event listener on the baths field to check if the baths is well formed
+        // add an event listener on the baths field to check if the baths is well formed
         bathsField.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) {
                 if (bathsField.getText().matches("^[0-9]*$")) {
@@ -488,7 +492,8 @@ public class PropertyDriver extends Application {
             }
         });
 
-        //add an event listener on the closets field to check if the closets is well formed
+        // add an event listener on the closets field to check if the closets is well
+        // formed
         closetsField.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) {
                 if (closetsField.getText().matches("^[0-9]*$")) {
@@ -499,7 +504,8 @@ public class PropertyDriver extends Application {
             }
         });
 
-        //add an event listener on the garage field to check if the garage is well formed
+        // add an event listener on the garage field to check if the garage is well
+        // formed
         garageField.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) {
                 if (garageField.getText().matches("^[0-9]*$")) {
@@ -510,7 +516,7 @@ public class PropertyDriver extends Application {
             }
         });
 
-        //add an event listener on the type field to check if the type is well formed
+        // add an event listener on the type field to check if the type is well formed
 
         typeField.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) {
@@ -522,7 +528,7 @@ public class PropertyDriver extends Application {
             }
         });
 
-        //add an event listener on the sqft field to check if the sqft is well formed
+        // add an event listener on the sqft field to check if the sqft is well formed
         sqftField.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) {
                 if (sqftField.getText().matches("^[0-9]*$")) {
@@ -533,7 +539,7 @@ public class PropertyDriver extends Application {
             }
         });
 
-        //add an event listener on the price field to check if the price is well formed
+        // add an event listener on the price field to check if the price is well formed
 
         priceField.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) {
@@ -544,14 +550,6 @@ public class PropertyDriver extends Application {
                 }
             }
         });
-
-        
-    
-
-        
-        
-        
-
 
         // // Create dialog components
         // // MAYBE THIS CAN BE PUT IN THE CLASS THAT CREATES THE NEW PROPERTYLISTVIEW
@@ -620,6 +618,7 @@ public class PropertyDriver extends Application {
         // if the user enters a username
         if (usernameResult.isPresent()) {
             // Username entered, prompt for password
+            loginDialog.getEditor().clear();
             loginDialog.setContentText("Password:");
             Optional<String> passwordResult = loginDialog.showAndWait();
 

@@ -1,53 +1,78 @@
 package edu.guilford;
 
 import javafx.application.Application;
-import javafx.beans.property.Property;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import edu.guilford.PropertyLists.PropertyList;
 
 /**
- * JavaFX App
+ * The PropertyDriver class extends the Application class and is the main class
+ * that
+ *
+ * The PropertyDriver class is responsible for creating the GUI and handling
+ *
+ * It takes the user to the owner screen or the customer screen depending on
+ * the login credentials entered by the user
+ * 
+ * To enter the first owner screen, the user must enter the username (owner) and
+ * password of (owner1 )
+ * To enter the second owner screen, the user must enter the username (owner2)
+ * and password of (owner2)
+ * 
+ * To enter the customer screen, the user must enter the username (custo) and
+ * password of (custo1)
+ * 
+ * @author Axel Sandoval, Rogelio Perez Montero, Kevin Buikpor
+ * 
  */
 public class PropertyDriver extends Application {
 
     public static void main(String[] args) {
         launch(args);
     }
+
+    /**
+     * 
+     * Overrides the start method of the Application class to create a JavaFX
+     * window.
+     * 
+     * Sets the title of the window, creates buttons for owner and customer login,
+     * 
+     * sets event handlers for the buttons to their respective methods, applies
+     * styling to the buttons, important to make rest of the code work,
+     * 
+     * creates a label for the website description, applies styling to the label,
+     * creates a vertical layout,
+     * 
+     * adds the label and buttons to the center of the layout, sets the layout as
+     * the scene content,
+     * 
+     * and shows the window.
+     * 
+     */
 
     @Override
     public void start(Stage primaryStage) {
@@ -89,7 +114,20 @@ public class PropertyDriver extends Application {
         primaryStage.show();
     }
 
-    // This method is called when the owner login button is clicked
+    /**
+     * This method is called when the owner login button is clicked
+     *
+     * It creates a dialog for login, prompts the user to enter a username and
+     * password, and validates the login credentials
+     *
+     * If the login credentials are valid, it takes the user to the owner screen
+     * where they can add, edit, or delete properties
+     *
+     * If the login credentials are invalid, it displays an error message
+     *
+     * If the user clicks the cancel button, it closes the dialog
+     * 
+     */
     private void openOwnerLogin() {
         // Create a dialog for login
         // A Dialog window is an independent sub window meant to carry temporary notice
@@ -163,8 +201,11 @@ public class PropertyDriver extends Application {
         }
     }
 
-    // This method is called when the owner login button is clicked to make sure the
-    // username and password are correct and in the system
+    /**
+     * These methods are called when the owner login button is clicked to make sure
+     * the username and password are correct and in the system
+     */
+
     private boolean validateOwnerLogin(String username, String password) {
 
         // return true but reaching for multiple different users
@@ -172,8 +213,6 @@ public class PropertyDriver extends Application {
 
     }
 
-    // This method is called when the owner login button is clicked to make sure the
-    // username and password are correct and in the system
     private boolean validateOwnerLogin2(String username, String password) {
 
         // return true but reaching for multiple different users
@@ -181,8 +220,14 @@ public class PropertyDriver extends Application {
 
     }
 
-    // This method is called when the owner login information for the first oqwneris
-    // correct
+    /**
+     * This method is called when the owner login information for the first owner is
+     * correct
+     * 
+     * It creates a new stage for the owner screen and displays the properties
+     * owned by the owner
+     * 
+     */
     private void openOwnerScreen(String username) {
         // Create a new stage for the owner screen
         Stage ownerStage = new Stage();
@@ -193,19 +238,6 @@ public class PropertyDriver extends Application {
         Label titleLabel = new Label("Properties Owned by " + username + ":");
         // ListView is a control that displays a list of items
         ListView<String> propertyListView = new ListView<>();
-
-        // Add sample property details to the property list view
-        // int propertyCount = 3;
-        // creating an array of properties and filling it with randomly generated
-        // properties
-        // Property[] properties = new Property[propertyCount];
-        // for (int i = 0; i < propertyCount; i++) {
-        // properties[i] = new Property<>();
-        // }
-        // for every property object in the array properties, print it out.
-        // for (Property property : properties) {
-        // System.out.println(property);
-        // }
 
         propertyListView.getItems().addAll(
                 "OWNER 1 DATA\nProperty 1: For Sale - $250,000\n" +
@@ -248,7 +280,10 @@ public class PropertyDriver extends Application {
         ownerStage.show();
     }
 
-    // This method is called when the owner2 login information is correct
+    /**
+     * This method is called when the owner2 login information is correct
+     * //
+     */
     private void openOwnerScreen2(String username) {
         // Create a new stage for the owner screen
         Stage ownerStage = new Stage();
@@ -308,8 +343,14 @@ public class PropertyDriver extends Application {
         ownerStage.show();
     }
 
-    // This method is called when the addproperty button is clicked
-    // it contains the listview of the properties
+    /**
+     * This method is called when the addproperty button is clicked
+     * it contains the listview of the properties organized 
+     * by the owner
+     * 
+     * It creates a new dialog for adding a new property
+     * 
+     */
     private void openAddPropertyDialog(ListView<String> propertyListView) {
         // Create a dialog (small window) called addPropertyDialog for adding a new
         // property string values
@@ -431,14 +472,10 @@ public class PropertyDriver extends Application {
             return null;
         });
 
-        //create a new Listview object 
+        // create a new Listview object
         ListView<String> propertyList = new ListView<String>();
-        //add the property details to the listview
+        // add the property details to the listview
         propertyList.getItems().add(addPropertyDialog.showAndWait().get());
-        
-
-
-
 
         // once the add button is clicked, the property is added to the bottow of the
         // list view
@@ -580,52 +617,6 @@ public class PropertyDriver extends Application {
             }
         });
 
-        // // Create dialog components
-        // // MAYBE THIS CAN BE PUT IN THE CLASS THAT CREATES THE NEW PROPERTYLISTVIEW
-        // TextField propertyDetailsField = new TextField();
-        // propertyDetailsField.setPromptText("Enter property details");
-
-        // // Set the dialog content to the property details text field
-        // addPropertyDialog.getDialogPane().setContent(propertyDetailsField);
-
-        // // Add buttons to the dialog
-        // // addButton has a button data of ok_done that means that the dialog will
-        // close
-        // // when the button is clicked successfully
-        // ButtonType addButton = new ButtonType("Add", ButtonBar.ButtonData.OK_DONE);
-        // // cancelButton has a button data of cancel_close that means that the dialog
-        // // will close when the button is clicked to cancel
-        // ButtonType cancelButton = new ButtonType("Cancel",
-        // ButtonBar.ButtonData.CANCEL_CLOSE);
-
-        // // Add buttons to the dialog
-        // addPropertyDialog.getDialogPane().getButtonTypes().addAll(addButton,
-        // cancelButton);
-
-        // // Enable or disable the Add button based on the text input
-        // // Node is the base class for all UI components that can be added to a scene
-        // // graph. It represents a single element that can be displayed on the screen,
-        // // such as a button, label, or image.
-        // // lookupButton() method is used to lookup a button based on the button type
-        // Node addButtonNode =
-        // addPropertyDialog.getDialogPane().lookupButton(addButton);
-        // // setDisable() method is used to disable the button
-        // addButtonNode.setDisable(true);
-        // // textProperty() method is used to get the text property of the text field
-        // propertyDetailsField.textProperty()
-        // // addListener() method is used to add a change listener to the text property
-        // // (observable, oldValue, newValue) ->
-        // // addButtonNode.setDisable(newValue.trim().isEmpty())
-        // .addListener((observable, oldValue, newValue) ->
-        // addButtonNode.setDisable(newValue.trim().isEmpty()));
-
-        // // Set the result converter to return the property details entered
-        // addPropertyDialog.setResultConverter(dialogButton -> {
-        // if (dialogButton == addButton)
-        // return propertyDetailsField.getText();
-        // return null;
-        // });
-
         // Show the add property dialog and wait for user input
         addPropertyDialog.showAndWait().ifPresent(propertyDetails -> {
             // Add the new property to the property list view
@@ -633,7 +624,11 @@ public class PropertyDriver extends Application {
         });
     }
 
-    // This method is called when the customer login button is clicked
+    /** 
+     * * This method is called when the customer login button is clicked
+     * 
+     * 
+     */
     private void openCustomerLogin() {
         // Create a dialog for login
         TextInputDialog loginDialog = new TextInputDialog();
@@ -679,14 +674,28 @@ public class PropertyDriver extends Application {
         }
     }
 
-    // This method is called when the customer login information is correct
+    /**
+     *  This method is called when the customer login information is correct
+     * 
+     * has a method that adds the properties to the gridpane and displays them using 
+     * the propertylist class
+     * 
+     * this method can be used to modify the properties as well and the number of properties it creates
+     * 
+     * containts the event listerner that allows the user to click on the property and view the details
+     * and allows the mouse to hover over the property and make it glow
+     * 
+     * clicking on image or label opens the property details
+     * 
+     * 
+     * 
+    */
     private void openCustomerScreen(String username) {
         Stage customerStage = new Stage();
         customerStage.setTitle("Customer Login");
-        Label titleLabel = new Label("Properties Available:");
 
         // Sets number of properties to display
-        ArrayList<PropertyList> propertiesList = PropertyList.generateRandomPropertyList(14);
+        ArrayList<PropertyList> propertiesList = PropertyList.generateRandomPropertyList(45);
 
         // Create the grid pane
         GridPane gridPane = new GridPane();
@@ -694,6 +703,9 @@ public class PropertyDriver extends Application {
         gridPane.setVgap(40);
         gridPane.setPadding(new Insets(20));
         gridPane.setAlignment(Pos.TOP_CENTER);
+        //set background color
+        gridPane.setStyle("-fx-background-color: #F0F8FF;");
+
 
         int row = 0; // Row and col for gridpane
         int col = 0;
@@ -721,6 +733,7 @@ public class PropertyDriver extends Application {
             // propertyLabel.setStyle("-fx-font-weight: bold"));
             propertyBox.getChildren().addAll(propertyImage, propertyLabel);
             gridPane.add(propertyBox, col, row);
+            
 
             col++;
             while (col == 3) {
@@ -735,7 +748,7 @@ public class PropertyDriver extends Application {
         scrollPane.setFitToWidth(true);
         scrollPane.setFitToHeight(true);
 
-        Scene scene = new Scene(scrollPane, 1100, 700);
+        Scene scene = new Scene(scrollPane, 900, 700);
         customerStage.setScene(scene);
         customerStage.show();
 
@@ -745,19 +758,23 @@ public class PropertyDriver extends Application {
                 VBox propertyBox = (VBox) node;
                 Label propertyLabel = (Label) propertyBox.getChildren().get(1);
                 PropertyList property = propertiesList.get(GridPane.getRowIndex(propertyBox));
-                // make a property bold when mouse hovers over it
-                propertyLabel
-                        .setOnMouseEntered(event -> propertyLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 12)));
-                propertyLabel
-                        .setOnMouseExited(event -> propertyLabel.setFont(Font.font("Verdana", FontWeight.NORMAL, 12)));
-                // event listener for property that opens openPropertyDetails method
+                //make image glow when mouse hovers over it
+                propertyBox.setOnMouseEntered(event -> propertyBox.setEffect(new Glow(0.5)));
+                propertyBox.setOnMouseExited(event -> propertyBox.setEffect(null));
+                
+        
+                // // event listener for property that opens openPropertyDetails method
                 propertyLabel.setOnMouseClicked(event -> openPropertyDetails(property));
+                propertyBox.setOnMouseClicked(event -> openPropertyDetails(property));
+                
             }
         }
 
     }
 
     /**
+     *  method that opens the property details
+     * 
      * 
      * @param property
      */
@@ -770,8 +787,8 @@ public class PropertyDriver extends Application {
         ArrayList<PropertyList> propertiesList = PropertyList.generateRandomPropertyList(27);
 
         // method to add properties to gridpane
-        String propertyString = String.format("%s\n %s\n %s\n %s\n %s\n %s\n %s\n %s\n %s\n", "Address:  " +
-                property.getAddress(), "Lease Duration:  " + property.getLease() + " months",
+        String propertyString = String.format("%s\n %s\n %s\n %s\n %s\n %s\n %s\n %s\n %s\n %s\n", "Address:  " +
+                property.getAddress(), "Lease Duration:  " + property.getLease() + " months", "Owner:  " + property.getOwner(),
                 "Rooms:  " + property.getRooms(),
                 "Bathrooms:  " + property.getBaths(), "Closets:  " + property.getClosets(),
                 "Garage:  " + property.getGarage(), "Property Type:  " + property.getType(),
@@ -798,7 +815,9 @@ public class PropertyDriver extends Application {
 
     }
 
-    // This method is called when the customer login information is correct
+    /** 
+     *  This method is called when the customer login information is correct 
+     * */
     private boolean validateCustomerLogin(String username, String password) {
         // Return true if the login is valid, false otherwise
         return username.equals("custo") && password.equals("custo1");

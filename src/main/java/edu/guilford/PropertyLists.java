@@ -67,25 +67,11 @@ public class PropertyLists {
 
         }
 
-        // constructor that creates the property list for the owner
-        // constructor for PropertyInformation
-        // public PropertyList(String saleRent, String price, int lease, int rooms, int
-        // baths, int closets,
-        // String garage, String type, Double sqft, String address) {
-        // this.saleRent = saleRent;
-        // this.price = price;
-        // this.lease = lease;
-        // this.rooms = rooms;
-        // this.baths = baths;
-        // this.closets = closets;
-        // this.garage = garage;
-        // this.type = type;
-        // this.sqft = sqft;
-        // this.address = address;
-        // }
+    
 
-        // static method to generate a list of random properties
         /**
+         * static method to generate a list of random properties
+         
          * @param numProperties
          * @return
          */
@@ -297,7 +283,11 @@ public class PropertyLists {
 
     }
 
-    // create a method that opens a dialog box to add a property
+    /** 
+     *  create a method that opens a dialog box to add a property
+     * 
+     * 
+     */
     public void addProperty() {
         // create a new stage
         Stage addPropertyStage = new Stage();
